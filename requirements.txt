@@ -1,0 +1,4 @@
+crewai
+PyPDF2
+fpdf2
+python-dotenv
