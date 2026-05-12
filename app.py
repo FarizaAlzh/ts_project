@@ -148,14 +148,15 @@ def build_report(document_text: str, previous_analysis_text: Optional[str], api_
             "- Аудитория, ценность\n"
             "- MVP, приоритеты\n"
             "- Сложность\n"
-            "- Инфобезопасность\n"
+            "- Информационная безопасность\n"
             "- Законодательство РК\n"
             "- Вопросы для уточнения (3-5)\n\n"
+            "Если ТЗ касается данных или безопасности, приведи примеры статей законодательства Казахстана.\n\n"
             "Текст ТЗ: {document_text}\n"
             "Предварительный анализ: {previous_analysis_text}"
         ),
         expected_output=(
-            "Структурированный отчет на русском. Риски, MVP, сложность, безопасность, законы, вопросы."
+            "Подробный отчет в формате Markdown. Используй профессиональную терминологию, четкие заголовки H2 и H3, маркированные списки и таблицу оценки рисков (высокий/средний/низкий)."
         ),
         agent=business_analyst,
     )
@@ -171,7 +172,7 @@ def build_report(document_text: str, previous_analysis_text: Optional[str], api_
             "- Тестирование, CI/CD, Deploy"
         ),
         expected_output=(
-            "Техническое дополнение. Стек, архитектура, ClickHouse, асинхрон, риски, CI/CD."
+            "Подробный отчет в формате Markdown. Используй профессиональную терминологию, четкие заголовки H2 и H3, маркированные списки и таблицу оценки рисков (высокий/средний/низкий)."
         ),
         agent=tech_lead,
         context=[task_business],
@@ -182,6 +183,7 @@ def build_report(document_text: str, previous_analysis_text: Optional[str], api_
         process=Process.sequential,
         agents=[business_analyst, tech_lead],
         tasks=[task_business, task_technical],
+        verbose=True,
     )
 
     time.sleep(5)
